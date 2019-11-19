@@ -54,7 +54,7 @@
 <meta property="og:site_name" content="Alone的博客">
 <meta property="og:description" content="最近学习了Linux的一些基本命令，写个博客记录一下，以便之后复习。1.pwd指令功能描述 ：　　　显示当前工作目录的绝对路径。基本语法：　　　pwd2.ls指令功能描述 ：　　　显示当前目录的内容信息。基本语法：　　　ls [选项] [目录或是文件]常用选项：　　　-a： 显示当前目录所有文件和目录，包括隐藏文件；　　　-l：以列表的形式显示信息；">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-06T11:03:14.268Z">
+<meta property="og:updated_time" content="2019-11-19T12:19:12.830Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://xuslone.top/2019/11/05/Linux_command%20(1)/">
@@ -219,7 +219,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-06 19:03:14" itemprop="dateModified" datetime="2019-11-06T19:03:14+08:00">2019-11-06</time>
+                <time title="修改时间：2019-11-19 20:19:12" itemprop="dateModified" datetime="2019-11-19T20:19:12+08:00">2019-11-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -258,12 +258,12 @@
 <h3 id="11-more指令"><a href="#11-more指令" class="headerlink" title="11.more指令"></a>11.more指令</h3><p>功能描述 ：<br>　　　more指令是一个基于VI编辑器的文本过滤器，它以全屏幕的方式按页显示文本文件的内容；<br>基本语法：<br>　　　more 要查看的文件</p>
 <h3 id="12-less指令"><a href="#12-less指令" class="headerlink" title="12.less指令"></a>12.less指令</h3><p>功能描述 ：<br>　　　less指令用来分屏查看文件内容，它的功能与more指令类似，但是比more指令更加强大，支持各种显示终端。less指令在显示文件内容时，并不是一次将整个文件加载之后才显示，而是根据显示需要加载内容，对于显示大型文件具有较高的效率。<br>基本语法：<br>　　　less 要查看的文件</p>
 <h3 id="13-gt-指令和-gt-gt-指令"><a href="#13-gt-指令和-gt-gt-指令" class="headerlink" title="13.&gt;指令和&gt;&gt;指令"></a>13.&gt;指令和&gt;&gt;指令</h3><p>功能描述 ：<br>　　　&gt;：输出重定向，将命令输出的内容写入文件，会覆盖文件原有的内容；<br>　　　&gt;&gt;：追加：将命令输出的内容追加到文件末尾，不会覆盖文件原有内容；<br>用法举例：<br>　　　（1）ls &gt; a.txt ：将ls命令输出的内容写入到文件a.txt；<br>　　　（2）cat a.txt &gt;&gt; b.txt：将cat输出的内容即文件a.txt的内容追加到b.txt中。</p>
-<h5 id="14-echo指令"><a href="#14-echo指令" class="headerlink" title="14.echo指令"></a>14.echo指令</h5><p>功能描述 ：<br>　　　输出内容到控制台；<br>基本语法：<br>　　　echo [选项] 要输出的内容<br>用法举例：<br>　　　echo $PATH ：输出环境变量；</p>
+<h3 id="14-echo指令"><a href="#14-echo指令" class="headerlink" title="14.echo指令"></a>14.echo指令</h3><p>功能描述 ：<br>　　　输出内容到控制台；<br>基本语法：<br>　　　echo [选项] 要输出的内容<br>用法举例：<br>　　　echo $PATH ：输出环境变量；</p>
 <h3 id="15-head指令"><a href="#15-head指令" class="headerlink" title="15.head指令"></a>15.head指令</h3><p>功能描述 ：<br>　　　显示文件的开头部分内容，默认显示前十行；<br>基本语法：<br>　　　head 要查看的文件<br>　　　head -n5 （查看文件的前5行，5可以使任意数）</p>
 <h3 id="16-tail指令"><a href="#16-tail指令" class="headerlink" title="16.tail指令"></a>16.tail指令</h3><p>功能描述 ：<br>　　　显示文件的尾部的内容，默认显示最后十行；<br>基本语法：<br>　　　head 要查看的文件<br>　　　head -n5 要查看的文件（查看文件的候5行，5可以使任意数）<br>　　　head -f 要查看的文件 （实时追踪该文档的所有更新）</p>
 <h3 id="17-ln指令"><a href="#17-ln指令" class="headerlink" title="17.ln指令"></a>17.ln指令</h3><p>功能描述 ：<br>　　　创建软链接，软链接也叫符号链接，类似于windows里的快捷方式，主要存放了链接其他文件的路径；<br>基本语法：<br>　　　ln -s [原文件或目录] [软链接名]；</p>
 <h3 id="18-history指令"><a href="#18-history指令" class="headerlink" title="18.history指令"></a>18.history指令</h3><p>功能描述 ：<br>　　　查看已经执行过的历史命令；<br>基本语法：<br>　　　history （查看所有执行过的历史命令）<br>　　　history 10 （查看执行过的最后十条命令，10可以使任意数）<br>　　　!178 （执行 编号为178的历史命令，178可以是任意数）</p>
-<p>来源: Roger的博客<br>作者: 王永强<br>链接: <a href="https://blog.w-yq.top/2019/11/05/liunx-command1/" target="_blank" rel="noopener">https://blog.w-yq.top/2019/11/05/liunx-command1/</a></p>
+<p>来源: Roger的博客<br>作者: 王永强<br>链接: <a href="https://blog.w-yq.top/2019/11/05/Liunx-command1/" target="_blank" rel="noopener">https://blog.w-yq.top/2019/11/05/Liunx-command1/</a></p>
 
     </div>
 
@@ -280,16 +280,16 @@
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2019/11/05/p1553%20lg/" rel="next" title="p1553字符串翻转">
-                  <i class="fa fa-chevron-left"></i> p1553字符串翻转
+                <a href="/2019/11/05/P1020%20LG/" rel="next" title="p1020导弹拦截">
+                  <i class="fa fa-chevron-left"></i> p1020导弹拦截
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2019/11/09/p1308%20LG/" rel="prev" title="p1308 LG">
-                  p1308 LG <i class="fa fa-chevron-right"></i>
+                <a href="/2019/11/19/p1553%20lg/" rel="prev" title="p1553字符串翻转">
+                  p1553字符串翻转 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -330,7 +330,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-pwd指令"><span class="nav-number">1.</span> <span class="nav-text">1.pwd指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-ls指令"><span class="nav-number">2.</span> <span class="nav-text">2.ls指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-cd指令"><span class="nav-number">3.</span> <span class="nav-text">3.cd指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-mkdir指令"><span class="nav-number">4.</span> <span class="nav-text">4.mkdir指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-rmdir指令"><span class="nav-number">5.</span> <span class="nav-text">5.rmdir指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-touch指令"><span class="nav-number">6.</span> <span class="nav-text">6.touch指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-cp指令"><span class="nav-number">7.</span> <span class="nav-text">7.cp指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#８-rm指令"><span class="nav-number">8.</span> <span class="nav-text">８.rm指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-mv指令"><span class="nav-number">9.</span> <span class="nav-text">9.mv指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-cat指令"><span class="nav-number">10.</span> <span class="nav-text">10.cat指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-more指令"><span class="nav-number">11.</span> <span class="nav-text">11.more指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-less指令"><span class="nav-number">12.</span> <span class="nav-text">12.less指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-gt-指令和-gt-gt-指令"><span class="nav-number">13.</span> <span class="nav-text">13.&gt;指令和&gt;&gt;指令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#14-echo指令"><span class="nav-number">13.0.1.</span> <span class="nav-text">14.echo指令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-head指令"><span class="nav-number">14.</span> <span class="nav-text">15.head指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-tail指令"><span class="nav-number">15.</span> <span class="nav-text">16.tail指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-ln指令"><span class="nav-number">16.</span> <span class="nav-text">17.ln指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#18-history指令"><span class="nav-number">17.</span> <span class="nav-text">18.history指令</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-pwd指令"><span class="nav-number">1.</span> <span class="nav-text">1.pwd指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-ls指令"><span class="nav-number">2.</span> <span class="nav-text">2.ls指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-cd指令"><span class="nav-number">3.</span> <span class="nav-text">3.cd指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-mkdir指令"><span class="nav-number">4.</span> <span class="nav-text">4.mkdir指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-rmdir指令"><span class="nav-number">5.</span> <span class="nav-text">5.rmdir指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-touch指令"><span class="nav-number">6.</span> <span class="nav-text">6.touch指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-cp指令"><span class="nav-number">7.</span> <span class="nav-text">7.cp指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#８-rm指令"><span class="nav-number">8.</span> <span class="nav-text">８.rm指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-mv指令"><span class="nav-number">9.</span> <span class="nav-text">9.mv指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-cat指令"><span class="nav-number">10.</span> <span class="nav-text">10.cat指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-more指令"><span class="nav-number">11.</span> <span class="nav-text">11.more指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-less指令"><span class="nav-number">12.</span> <span class="nav-text">12.less指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-gt-指令和-gt-gt-指令"><span class="nav-number">13.</span> <span class="nav-text">13.&gt;指令和&gt;&gt;指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-echo指令"><span class="nav-number">14.</span> <span class="nav-text">14.echo指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-head指令"><span class="nav-number">15.</span> <span class="nav-text">15.head指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-tail指令"><span class="nav-number">16.</span> <span class="nav-text">16.tail指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-ln指令"><span class="nav-number">17.</span> <span class="nav-text">17.ln指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#18-history指令"><span class="nav-number">18.</span> <span class="nav-text">18.history指令</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -357,7 +357,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
