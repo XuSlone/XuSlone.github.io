@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Alone的博客" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="Selenium是一个强大的跨平台跨浏览器的web应用程序测试工具。   Selenium直接运行在浏览器中，通过Selenium所做的操作就像用户真的在操作一样。 本文介绍了其基本用法并给出了两个实例。 作者：徐世龙 杨宗强">
+<meta name="keywords" content="Selenium,python,爬虫">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Selenium库使用简介">
+<meta property="og:url" content="https:&#x2F;&#x2F;xuslone.top&#x2F;2019&#x2F;12&#x2F;14&#x2F;selenium_py&#x2F;index.html">
+<meta property="og:site_name" content="Alone的博客">
+<meta property="og:description" content="Selenium是一个强大的跨平台跨浏览器的web应用程序测试工具。   Selenium直接运行在浏览器中，通过Selenium所做的操作就像用户真的在操作一样。 本文介绍了其基本用法并给出了两个实例。 作者：徐世龙 杨宗强">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;11&#x2F;Qs1Q9H.md.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;11&#x2F;Qs11gA.md.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;11&#x2F;Qs13jI.md.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;11&#x2F;QswP6U.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;11&#x2F;QswTE9.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;11&#x2F;Qsq3kj.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;11&#x2F;QsO7Of.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;11&#x2F;Qsj7dS.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;11&#x2F;QsvKoD.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;12&#x2F;Q60YVg.gif">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;14&#x2F;QR2dQU.gif">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;14&#x2F;Q2zs4P.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;14&#x2F;Q2zPmj.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;14&#x2F;QR0WQA.gif">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;14&#x2F;QRB41J.gif">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;14&#x2F;QRDXV0.gif">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;12&#x2F;Q6yzVK.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;12&#x2F;Q6yjDx.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;13&#x2F;Q2N5xP.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;13&#x2F;Q2N42t.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;13&#x2F;Q2ayAe.gif">
+<meta property="og:updated_time" content="2019-12-14T14:46:51.371Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;11&#x2F;Qs1Q9H.md.png">
+
+<link rel="canonical" href="https://xuslone.top/2019/12/14/selenium_py/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Selenium库使用简介 | Alone的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Alone的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">xuslone</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/XuSlone" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://xuslone.top/2019/12/14/selenium_py/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="徐世龙">
+      <meta itemprop="description" content="兰州大学 | 数据科学与大数据技术 | 机器学习 算法">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alone的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Selenium库使用简介
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-12-14 22:26:05 / 修改时间：22:46:51" itemprop="dateCreated datePublished" datetime="2019-12-14T22:26:05+08:00">2019-12-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Selenium是一个强大的跨平台跨浏览器的web应用程序测试工具。  </p>
+<p>Selenium直接运行在浏览器中，通过Selenium所做的操作就像用户真的在操作一样。</p>
+<p>本文介绍了其基本用法并给出了两个实例。</p>
+<p><strong>作者：徐世龙 杨宗强</strong></p>
+<a id="more"></a>
+
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li><a href="#ch1">Selenium介绍</a><ol>
+<li><a href="#ch1.1">Selenium简介</a></li>
+<li><a href="#ch1.2">Selenium的特点</a></li>
+</ol>
+</li>
+<li><a href="#ch2">Selenium库的安装与环境配置</a><ol>
+<li><a href="#ch2.1">Selenium库的安装</a></li>
+<li><a href="#ch2.2">Selenium浏览器的配置</a></li>
+</ol>
+</li>
+<li><a href="#ch3">一个简单的入门程序</a></li>
+<li><a href="#ch4">Selenium库详解</a><ol>
+<li><a href="#ch4.1">无图形化界面的浏览器</a></li>
+<li><a href="#ch4.2">元素的查找和元素交互动作</a></li>
+</ol>
+</li>
+<li><a href="#ch5">程序实例</a><ol>
+<li><a href="#ch5.1">模拟校园网登录</a></li>
+<li><a href="#ch5.2">易盾滑动验证码破解</a></li>
+</ol>
+</li>
+<li><a href="#ch6">小结</a></li>
+</ol>
+<p><a id="ch1"></a></p>
+<h2 id="一、Selenium介绍"><a href="#一、Selenium介绍" class="headerlink" title="一、Selenium介绍"></a>一、Selenium介绍</h2><p><a id="ch1.1"></a></p>
+<h3 id="1）Selenium简介"><a href="#1）Selenium简介" class="headerlink" title="1）Selenium简介"></a>1）Selenium简介</h3><ul>
+<li>Selenium是一个强大的跨平台跨浏览器的web应用程序测试工具。  </li>
+<li>Selenium直接运行在浏览器中，通过Selenium所做的操作就像用户真的在操作一样。</li>
+</ul>
+<p><a id="ch1.2"></a></p>
+<h3 id="2）Selenium的特点"><a href="#2）Selenium的特点" class="headerlink" title="2）Selenium的特点"></a>2）Selenium的特点</h3><ul>
+<li>Selenium在python爬虫中常常用来解决JS的渲染问题。  </li>
+<li>Selenium和其他爬虫第三方库不同，它可以进行懒加载网页的爬取，并可以模拟人类访问真实浏览器的操作，例如点击，拖动，输入内容上传下载等   </li>
+<li>Selenium适配多种浏览器，如：chrome、IE、Firefox、PhantomJS（不再维护）。  </li>
+<li>在python中，通过Selenium Python的API，你可以非常轻松地使用Selenium WebDriver的所有功能。  </li>
+</ul>
+<p><a id="ch2"></a></p>
+<h2 id="二、Selenium库的安装与环境配置"><a href="#二、Selenium库的安装与环境配置" class="headerlink" title="二、Selenium库的安装与环境配置"></a>二、Selenium库的安装与环境配置</h2><p><a id="ch2.1"></a></p>
+<h3 id="1）Selenium库的安装"><a href="#1）Selenium库的安装" class="headerlink" title="1）Selenium库的安装"></a>1）Selenium库的安装</h3><p>在已经配置好python环境的机器中，通过在命令行中输入以下命令即可安装Selenium库</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install selenium</span><br></pre></td></tr></table></figure>
+
+<img src="https://s2.ax1x.com/2019/12/11/Qs1Q9H.md.png"  />  
+
+<p>安装结束后在python命令行中，如果你可以成功运行以下命令就说明你的selenium安装完成了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br></pre></td></tr></table></figure>
+
+<img src="https://s2.ax1x.com/2019/12/11/Qs11gA.md.png" alt="Qs11gA.png" border="0" />  
+
+<p>安装结束后在python命令行中，如果你可以成功运行以下命令就说明你的selenium安装完成了</p>
+<p><a id="ch2.2"></a></p>
+<h3 id="2）Selenium浏览器的配置"><a href="#2）Selenium浏览器的配置" class="headerlink" title="2）Selenium浏览器的配置"></a>2）Selenium浏览器的配置</h3><p>Selenium webdriver可以配合多种浏览器使用，例如：chrome、IE、Firefox、PhantomJS（不再维护）<br>因为现在PhantomJS已经停止开发，本文使用chrome来做演示。<br>在win下，谷歌浏览器驱动为：chromedriver.exe<br>下载地址：<a href="http://chromedriver.storage.googleapis.com/index.html" target="_blank" rel="noopener">http://chromedriver.storage.googleapis.com/index.html</a><br>下载完成后，有两种方式调用驱动  </p>
+<p><strong>① 按照以下操作把”chromedriver.exe”添加到系统的环境变量中</strong></p>
+<img src="https://s2.ax1x.com/2019/12/11/Qs13jI.md.png" width="400" hegiht="413" align=left />
+<img src="https://s2.ax1x.com/2019/12/11/QswP6U.png" width="320" hegiht="213" align=left />
+
+<img src="https://s2.ax1x.com/2019/12/11/QswTE9.png" width="350" hegiht="213" align=left />
+<img src="https://s2.ax1x.com/2019/12/11/Qsq3kj.png" width="350" hegiht="213" align=centre />
+
+<p><strong>② 创建webdriver对象时，直接将本机chromedriver.exe路径作为executable_path参数传入</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">path = <span class="string">r'C:\Users\ASUS\Desktop\chromedriver.exe'</span>  <span class="comment">#本机chrome路径</span></span><br><span class="line">browser = webdriver.Chrome(executable_path=path)</span><br></pre></td></tr></table></figure>
+
+<p><a id="ch3"></a></p>
+<h2 id="三、一个简单的入门程序"><a href="#三、一个简单的入门程序" class="headerlink" title="三、一个简单的入门程序"></a>三、一个简单的入门程序</h2><p>下面进行一个简单的程序测试:</p>
+<p>首先引入依赖库</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">import</span> time</span><br></pre></td></tr></table></figure>
+
+<p>之后创建chrome.webdriver控制器对象,这里使用直接传入本机chromedriver.exe路径的方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">path = <span class="string">r'C:\Users\ASUS\Desktop\chromedriver.exe'</span>  <span class="comment"># 本机chrome路径</span></span><br><span class="line">browser = webdriver.Chrome(executable_path=path)  <span class="comment"># 创建Chrome对象,将会启动chrome浏览器窗口</span></span><br></pre></td></tr></table></figure>
+
+<p>使用浏览器对象的get()方法尝试访问百度，暂停两秒后将其关闭</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">browser.get(<span class="string">'https://www.baidu.com'</span>)  <span class="comment"># 访问百度.</span></span><br><span class="line">time.sleep(<span class="number">2</span>)    <span class="comment"># 暂停两秒，否则浏览器会一闪而过</span></span><br><span class="line">browser.quit()   <span class="comment"># 关闭浏览器</span></span><br></pre></td></tr></table></figure>
+
+<p>通过上述程序，可以很直观的看出selenium模拟真人对浏览器的控制。<br>接下来将详细讲解selenium中各方法的使用</p>
+<p><a id="ch4"></a></p>
+<h2 id="四、Selenium库详解"><a href="#四、Selenium库详解" class="headerlink" title="四、Selenium库详解"></a>四、Selenium库详解</h2><p><a id="ch4.1"></a></p>
+<h3 id="1-无图形化界面的浏览器"><a href="#1-无图形化界面的浏览器" class="headerlink" title="1.无图形化界面的浏览器"></a>1.无图形化界面的浏览器</h3><p>有时候，我们只需要拿到网页的信息，而不需要浏览器的图形界面。<br>而且，打开图形化界面也是一个很耗时间的工作。<br>此时，我们可以通过一个参数对象来控制chrome以无界面模式打开。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium.webdriver.chrome.options <span class="keyword">import</span> Options <span class="comment"># 引入Options类</span></span><br></pre></td></tr></table></figure>
+
+<p>创建一个参数对象，用来控制chrome以无界面模式打开</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chrome_options = Options()                <span class="comment"># 创建一个参数对象</span></span><br><span class="line">chrome_options.add_argument(<span class="string">'--headless'</span>) <span class="comment"># 添加--headless参数，以无界面形式打开</span></span><br></pre></td></tr></table></figure>
+
+<p>将之前的创建浏览器代码修改，传入新的chrome_options参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">browser = webdriver.Chrome(executable_path=path, chrome_options=chrome_options)</span><br></pre></td></tr></table></figure>
+
+<p>在之前程序的time.sleep(2)后添加</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">browser.save_screenshot(<span class="string">'baidu.png'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>该语句用于将访问后结果截图保存到本地，以观察是否打开对应页面<br>打开baidu.png，结果如下：</p>
+<img src="https://s2.ax1x.com/2019/12/11/QsO7Of.png"  />  
+
+<p><strong>完整代码如下:</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium.webdriver.chrome.options <span class="keyword">import</span> Options <span class="comment"># 引入Options类</span></span><br><span class="line">chrome_options = Options() <span class="comment"># 创建一个参数对象</span></span><br><span class="line">chrome_options.add_argument(<span class="string">'--headless'</span>) <span class="comment"># 添加--headless参数，以无界面形式打开</span></span><br><span class="line">browser = webdriver.Chrome(executable_path=path, options=chrome_options)</span><br><span class="line">browser.get(<span class="string">'https://www.baidu.com'</span>)</span><br><span class="line">time.sleep(<span class="number">2</span>) </span><br><span class="line">browser.save_screenshot(<span class="string">'baidu.png'</span>)</span><br><span class="line">browser.quit()</span><br></pre></td></tr></table></figure>
+
+<p><a id="ch4.2"></a></p>
+<h3 id="2-元素的查找和元素交互动作"><a href="#2-元素的查找和元素交互动作" class="headerlink" title="2.元素的查找和元素交互动作"></a>2.元素的查找和元素交互动作</h3><p><a id="ch4.2.1"></a></p>
+<h4 id="1）元素对象的查找"><a href="#1）元素对象的查找" class="headerlink" title="1）元素对象的查找"></a>1）元素对象的查找</h4><p>现在，我们继续修改上面的程序：<br>此时为了直观展现我们所做的操作，我们以图形化形式打开浏览器并访问百度</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">browser = webdriver.Chrome(executable_path=path)</span><br><span class="line">browser.get(<span class="string">"https://www.baidu.com"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>此时我们希望在搜索框中输入关键字 <strong>“python”</strong> 并搜索，我们需要确定的是输入框的在html中的位置。<br>这里，我们可以用 <strong>browser</strong> 对象实例中的 <strong>”find_element_by_class_xx”</strong> 方法(xx中可以为id，name，class_name),来查找网页html文件中对应属性的标签。<br>同时我们需要知道baidu.com中的搜索框&lt;input&gt;标签的 <strong>class</strong> 的值。   </p>
+<p>查找方法如下：<br>以chrome浏览器为例,打开百度后，按F12检查网页元素，找到如图所示的按钮，点击后选择你要查找的元素</p>
+<img src="https://s2.ax1x.com/2019/12/11/Qsj7dS.png" alt="Qsj7dS.png" border="0" />
+
+<img src="https://s2.ax1x.com/2019/12/11/QsvKoD.png" alt="QsvKoD.png" border="0" />
+
+<p>找到如下标记：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"s_ipt"</span> <span class="attr">name</span>=<span class="string">"wd"</span> <span class="attr">id</span>=<span class="string">"kw"</span> <span class="attr">maxlength</span>=<span class="string">"100"</span> <span class="attr">autocomplete</span>=<span class="string">"off"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>可以发现，他的 <strong>id=”kw”</strong> 是唯一的。<br>所以，我们可以用 <strong>find_element_by_id</strong> 方法，定位到搜索框元素</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">my_input = browser.find_element_by_id(<span class="string">'kw'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>使用 <strong>send_keys</strong> 方法输入我们要搜索的内容<br><strong>Tips:</strong>如果你想要删除你所输入的内容你可以使用 <strong>clear()</strong> 方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">my_input.send_keys(<span class="string">'python'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>接下来我们想要点击<strong>“百度一下”</strong>按钮，我们使用和同样的方法定位<strong>“百度一下”</strong>按钮的位置。<br>找到如下标签：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"百度一下"</span> <span class="attr">id</span>=<span class="string">"su"</span> <span class="attr">class</span>=<span class="string">"btn self-btn bg s_btn"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>可以发现，我们可以使用 <strong>id</strong> 定位它，也可以使用 <strong>class</strong> 来定位它。<br>这里我们使用另一种方法 <strong>find_element_by_class_name</strong> 来定位该按钮</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">button = browser.find_elements_by_class_name(<span class="string">'s_btn'</span>) <span class="comment">#得到定位到的按钮对象</span></span><br></pre></td></tr></table></figure>
+
+<p>调用方法单击这个按钮，并保存网页截图</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">button.click()</span><br><span class="line">browser.save_screenshot(<span class="string">'baidu1.png'</span>)  <span class="comment"># 保存截图，以便查看结果</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>完整代码如下：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">path = <span class="string">r'C:\Users\ASUS\Desktop\chromedriver.exe'</span></span><br><span class="line">browser = webdriver.Chrome(executable_path=path)</span><br><span class="line">time.sleep(<span class="number">2</span>)</span><br><span class="line">browser.get(<span class="string">"https://www.baidu.com"</span>)</span><br><span class="line">time.sleep(<span class="number">2</span>)            <span class="comment">#等待2秒</span></span><br><span class="line">my_input= browser.find_element_by_id(<span class="string">'kw'</span>)</span><br><span class="line">my_input.send_keys(<span class="string">'python'</span>)</span><br><span class="line">time.sleep(<span class="number">2</span>)           <span class="comment">#等待2秒</span></span><br><span class="line">button = browser.find_element_by_class_name(<span class="string">'s_btn'</span>) <span class="comment">#得到定位到的按钮对象</span></span><br><span class="line">button.click()</span><br><span class="line">browser.save_screenshot(<span class="string">'baidu1.png'</span>)  <span class="comment"># 保存截图，以便查看结果</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>效果如下：</strong></p>
+<img src="https://s2.ax1x.com/2019/12/12/Q60YVg.gif" alt="Q60YVg.gif" border="0" width="500"  />  
+
+<p><strong>还有很多其他的定位元素的方法：</strong></p>
+<ul>
+<li>find_element_by_id              根据id找节点</li>
+<li>find_element_by_name           根据name找节点</li>
+<li>find_element_by_xpath          根据xpath找节点</li>
+<li>find_element_by_tag_name       根据标签名找节点</li>
+<li>find_element_by_class_name     根据class找节点</li>
+<li>find_element_by_css_selector   根据选择器找节点</li>
+<li>find_element_by_link_text      根据链接内容找节点</li>
+</ul>
+<p><a id="ch4.2.2"></a></p>
+<h4 id="2）与元素对象的交互"><a href="#2）与元素对象的交互" class="headerlink" title="2）与元素对象的交互"></a>2）与元素对象的交互</h4><p>其实，我们在上边的示例中已经演示了一部分交互方法。<br>这里，我再对常用的交互方法做一个详解。</p>
+<ul>
+<li>单击：click()  </li>
+<li>输入：send_keys(‘要写入的文字’)   </li>
+<li>移动鼠标：move_by_offset(移动的坐标)</li>
+</ul>
+<p>单击和输入上面已经有了实例，移动鼠标在下面的实例中也有体现，这里就不过多赘述。<br>这里给出一个实例供大家测试：</p>
+<p>首先引入行动链类：<br>from selenium.webdriver import ActionChains </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">action = ActionChains(browser) <span class="comment"># 创建行动链对象</span></span><br><span class="line">action.move_by_offset(<span class="number">10</span>, <span class="number">10</span>).perform() <span class="comment"># 执行移动</span></span><br><span class="line">time.sleep(<span class="number">2</span>)</span><br><span class="line">action.move_by_offset(<span class="number">10</span>, <span class="number">10</span>).perform()</span><br><span class="line">time.sleep(<span class="number">2</span>)</span><br><span class="line">action.move_by_offset(<span class="number">10</span>, <span class="number">10</span>).perform()</span><br><span class="line">time.sleep(<span class="number">2</span>)</span><br><span class="line">action.move_by_offset(<span class="number">20</span>, <span class="number">0</span>).perform()</span><br><span class="line">time.sleep(<span class="number">2</span>)</span><br><span class="line">action.move_by_offset(<span class="number">20</span>, <span class="number">0</span>).perform()</span><br></pre></td></tr></table></figure>
+
+<p>结果如下：注意观察粒子的变化</p>
+<p><img src="https://s2.ax1x.com/2019/12/14/QR2dQU.gif" alt="QR2dQU.gif" border="0" />  说明鼠标的位置是在变化的</p>
+<p>但要注意的几点是：<br>1.移动鼠标是本次传入的坐标和上次的坐标相加减，不是替换。<br>2.窗口的大小，滚动条所在的位置都会对坐标产生影响。<br>3.真正的鼠标是不会跟着selenium的操作而移动的。<br>因此，这里建议大家使用find_element_by_xx来定位标签对象。</p>
+<p>也可以将许多操作放入一个操作集，上述就是一个单步执行的行动链，这里给大家演示一个真正的行动链：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将百度搜索代码进行改进</span></span><br><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver <span class="keyword">import</span> ActionChains</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line">path = <span class="string">r'C:\Users\ASUS\Desktop\chromedriver.exe'</span></span><br><span class="line">browser = webdriver.Chrome(executable_path=path)</span><br><span class="line">time.sleep(<span class="number">2</span>)</span><br><span class="line">browser.get(<span class="string">"https://www.baidu.com"</span>)</span><br><span class="line">time.sleep(<span class="number">2</span>)            <span class="comment">#等待2秒</span></span><br><span class="line">my_input= browser.find_element_by_id(<span class="string">'kw'</span>)</span><br><span class="line">my_input.send_keys(<span class="string">'python'</span>)</span><br><span class="line">time.sleep(<span class="number">2</span>)           <span class="comment">#等待2秒</span></span><br><span class="line">button = browser.find_element_by_class_name(<span class="string">'s_btn'</span>) <span class="comment">#得到定位到的按钮对象</span></span><br><span class="line">action = ActionChains(browser)</span><br><span class="line">action.move_to_element(button)</span><br><span class="line">action.click()</span><br><span class="line">action.perform()</span><br><span class="line">browser.save_screenshot(<span class="string">'baidu1.png'</span>)  <span class="comment"># 保存截图，以便查看结果</span></span><br></pre></td></tr></table></figure>
+
+<p>其中，action就是一个行动链。我们向其中添加了移动到button对象中心和点击的动作，在最后通过perform一起执行。</p>
+<p><a id="ch4.2.3"></a></p>
+<h4 id="3）获取元素属性信息"><a href="#3）获取元素属性信息" class="headerlink" title="3）获取元素属性信息"></a>3）获取元素属性信息</h4><p>我们对页面进行操作后，一定会有想要的信息。比如：图片的链接，网页的HTML文件，新闻的标题等等等等。<br>接下来，我将讲解一些常用的获取属性的方法。</p>
+<ul>
+<li>page_source：获取当前页面的源码  </li>
+<li>title：获取当前页面的标题  </li>
+<li>text：获取文本  </li>
+<li>get_attribute()：获取元素给定属性</li>
+</ul>
+<p>例如，我们要查看百度的标题和源代码，可以使用如下代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(browser.title) <span class="comment"># 打印标题</span></span><br><span class="line">print(browser.page_source) <span class="comment"># 打印源码</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>结果如下：</strong><br>第一行打印的是标题<br>后面打印的是网页源码的一部分<br><img src="https://s2.ax1x.com/2019/12/14/Q2zs4P.png" alt="Q2zs4P.png" border="0" /></p>
+<p>再比如，我们想看某个标签中的文字和链接，以下边的标签为例:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">id</span>=<span class="string">"setf"</span> <span class="attr">href</span>=<span class="string">"//www.baidu.com/cache/sethelp/help.html"</span> <span class="attr">onmousedown</span>=<span class="string">"return ns_c(&#123;'fm':'behs','tab':'favorites','pos':0&#125;)"</span> <span class="attr">target</span>=<span class="string">"_blank"</span>&gt;</span>把百度设为主页<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>可以使用如下代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">new_link = browser.find_element_by_id(<span class="string">'setf'</span>) <span class="comment"># 找到id为setf的标签</span></span><br><span class="line">print(new_link.text)</span><br><span class="line">print(new_link.get_attribute(<span class="string">'href'</span>))</span><br></pre></td></tr></table></figure>
+
+<p><strong>结果如下：</strong></p>
+<img src="https://s2.ax1x.com/2019/12/14/Q2zPmj.png" alt="Q2zPmj.png" border="0"/>
+
+<p><a id="ch4.2.4"></a></p>
+<h4 id="4）运行JS代码"><a href="#4）运行JS代码" class="headerlink" title="4）运行JS代码"></a>4）运行JS代码</h4><p><strong>selenium</strong>还提供了对JS代码进行执行的功能：  </p>
+<p>通过<strong>execute_script()</strong>方法，向其中传入js代码的字符串，可以让浏览器对象执行该段js代码。<br>具体实例如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">js=<span class="string">'window.scrollBy(0,2)'</span></span><br><span class="line"><span class="keyword">for</span> y <span class="keyword">in</span> range(<span class="number">30000</span>):</span><br><span class="line">        browser.execute_script(js)</span><br></pre></td></tr></table></figure>
+
+<p>通过执行上述代码，可以使浏览器完成向下滚屏的效果，如图：</p>
+<img src="https://s2.ax1x.com/2019/12/14/QR0WQA.gif" alt="QR0WQA.gif" border="0" />  
+
+<p><a id="ch4.2.5"></a></p>
+<h4 id="5）对懒加载网页的爬取对策"><a href="#5）对懒加载网页的爬取对策" class="headerlink" title="5）对懒加载网页的爬取对策"></a>5）对懒加载网页的爬取对策</h4><p>写爬虫时最难的一点就是懒加载。这里我对懒加载进行一下简单的解释：<br>懒加载技术，能够在用户滚动页面的时候自动获取更多的数据,而新得到的数据不会影响原有数据的显示,同时最大程度上减少服务器端的资源耗用。<br>换句话说，只有用户翻到了的内容才会加载，没有翻到的内容（比如说图片链接）暂时不会加载。</p>
+<p>就像下面这样：  </p>
+<img src="https://s2.ax1x.com/2019/12/14/QRB41J.gif" alt="QRB41J.gif" border="0"   />
+
+<p>没有翻到的东西是不会被加载出来的，这就对爬虫工程带来了很大的困扰。</p>
+<p>对此，我们从根源下手。既然翻不到的不加载，那只要翻到不就可以了吗。<br>因此，我们可以用上述JS语句，完成向下翻页的功能，使未加载的东西加载出来，以达到对懒加载网页爬取的功能。</p>
+<p><a id="ch5"></a></p>
+<h2 id="五、程序实例"><a href="#五、程序实例" class="headerlink" title="五、程序实例"></a>五、程序实例</h2><p><a id="ch5.1"></a></p>
+<h3 id="1-模拟校园网登录"><a href="#1-模拟校园网登录" class="headerlink" title="1. 模拟校园网登录"></a>1. 模拟校园网登录</h3><p>校园网登录过程可以分为以下三步：</p>
+<ul>
+<li>打开验证页面</li>
+<li>输入账号和密码</li>
+<li>点击确定</li>
+</ul>
+<p>因此我们把这三步动作使用程序模拟，以达到自动登录校园网的目的</p>
+<p>① 第一步打开验证页面</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">path = <span class="string">r'C:\Users\ASUS\Desktop\chromedriver.exe'</span></span><br><span class="line">browser = webdriver.Chrome(executable_path=path)</span><br><span class="line">browser.get(<span class="string">"http://10.10.0.166/srun_portal_success?ac_id=1&amp;theme=basic1"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>② 第二步定位账号、密码输入框，并输入账号和密码<br>同样的我们在打开网页后，按F12检查网页元素，找到输入框对应的标签查看元素属性</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">time.sleep(<span class="number">1</span>)            <span class="comment">#等待1秒</span></span><br><span class="line">my_acc= browser.find_element_by_id(<span class="string">'username'</span>)<span class="comment">#得到定位账号输入框</span></span><br><span class="line">my_acc.send_keys(<span class="string">'你的账号'</span>)</span><br><span class="line">time.sleep(<span class="number">1</span>)            <span class="comment">#等待1秒</span></span><br><span class="line">my_pd = browser.find_element_by_id(<span class="string">'password'</span>) <span class="comment">#得到定位密码输入框</span></span><br><span class="line">my_pd.send_keys(<span class="string">"你的密码"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>③定位登录按钮的位置，点击登录并保存登录截图</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">time.sleep(<span class="number">1</span>)            <span class="comment">#等待1秒</span></span><br><span class="line">my_button = browser.find_element_by_id(<span class="string">"login"</span>)</span><br><span class="line">my_button.click()</span><br><span class="line">time.sleep(<span class="number">3</span>) </span><br><span class="line">browser.save_screenshot(<span class="string">'login.png'</span>)  <span class="comment"># 保存截图，以便查看结果</span></span><br></pre></td></tr></table></figure>
+
+<p>为了实现无操控静默自动登录，我们在实际使用时不需要图形界面，也不需要截图保存，同时需要快速通过验证。</p>
+<p><strong>完整代码如下（无图形化界面版）：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium.webdriver.support.wait <span class="keyword">import</span> WebDriverWait </span><br><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.chrome.options <span class="keyword">import</span> Options <span class="comment"># 引入Options类</span></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">path = <span class="string">r'C:\Users\ASUS\Desktop\chromedriver.exe'</span></span><br><span class="line">chrome_options = Options()                <span class="comment"># 创建一个参数对象</span></span><br><span class="line"><span class="comment">#chrome_options.add_argument('--headless') # 添加--headless参数，以无界面形式打开</span></span><br><span class="line">browser = webdriver.Chrome(executable_path=path,options=chrome_options)</span><br><span class="line">browser.get(<span class="string">"http://10.10.0.166/srun_portal_pc?ac_id=2&amp;theme=lzu"</span>) </span><br><span class="line"><span class="comment">#wait = WebDriverWait()</span></span><br><span class="line">time.sleep(<span class="number">1</span>)            <span class="comment">#等待1秒</span></span><br><span class="line"><span class="comment">#wait.until(EC.presence_of_element_located((By.ID, 'username')))</span></span><br><span class="line">my_acc = browser.find_element_by_id(<span class="string">'username'</span>)<span class="comment">#得到定位账号输入框</span></span><br><span class="line">my_acc.send_keys(<span class="string">'xushl18'</span>)</span><br><span class="line">time.sleep(<span class="number">1</span>)            <span class="comment">#等待1秒</span></span><br><span class="line">my_pd = browser.find_element_by_id(<span class="string">'password'</span>) <span class="comment">#得到定位密码输入框</span></span><br><span class="line">my_pd.send_keys(<span class="string">"xu200002"</span>) </span><br><span class="line">time.sleep(<span class="number">1</span>)            <span class="comment">#等待1秒</span></span><br><span class="line">my_button = browser.find_element_by_id(<span class="string">"login"</span>)</span><br><span class="line">my_button.click()</span><br><span class="line">time.sleep(<span class="number">3</span>) </span><br><span class="line">browser.close()     <span class="comment">#关闭浏览器</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>图形化界面显示效果：</strong></p>
+<img src="https://s2.ax1x.com/2019/12/14/QRDXV0.gif" alt="QRDXV0.gif" border="0"  />  
+
+<p><a id="ch5.2"></a></p>
+<h3 id="2-易盾滑动验证码破解"><a href="#2-易盾滑动验证码破解" class="headerlink" title="2. 易盾滑动验证码破解"></a>2. 易盾滑动验证码破解</h3><ul>
+<li>滑动验证码，通过判断滑块和缺口是否对齐，和滑动轨迹是否符合人类行为来检测机器人。<img src="https://s2.ax1x.com/2019/12/12/Q6yzVK.png" alt="Q6yzVK.png" border="0" width="350" hegiht="313" align=left />
+<img src="https://s2.ax1x.com/2019/12/12/Q6yjDx.png" alt="Q6yjDx.png" border="0" width="400" hegiht="313" align=centre />
+
+</li>
+</ul>
+<p>总体思路就是通过程序模拟鼠标拖动，把滑块拖动到正确的缺口位置<br>破解要解决的问题主要有2个：</p>
+<ul>
+<li>怎么确定缺口在图片中的位置，或者说计算出要滑动的距离</li>
+<li>如何模仿人的操作轨迹，防止被检测出来是程序模仿</li>
+</ul>
+<p>对于第一个问题，在<strong>python</strong>的<strong>opencv</strong>库中，有一个模板匹配的方法<strong>matchTemplate</strong>， 通过这个方法可以很方便的获取缺口的位置。     </p>
+<p>但是在匹配时，每张图片的阈值都不同，不合适的阈值会使结果匹配出好几处位置。所以我们使用二分法来查找这个精确的阈值。</p>
+<img src="https://s2.ax1x.com/2019/12/13/Q2N5xP.png" alt="Q2N5xP.png" border="0" width="400" hegiht="313" align=left />  
+<img src="https://s2.ax1x.com/2019/12/13/Q2N42t.png" alt="Q2N42t.png" border="0" width="400" hegiht="313" align=centre />  
+
+<p><strong>实现代码如下：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">match</span><span class="params">(self, target, template)</span>:</span>   </span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        使用opencv匹配缺口位置</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        img_rgb = cv2.imread(target)      <span class="comment">#用CV加载有缺口的背景</span></span><br><span class="line">        img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY) <span class="comment">#用CV转换成灰度图</span></span><br><span class="line">        template = cv2.imread(template,<span class="number">0</span>) <span class="comment">#用CV打开要移动的图块</span></span><br><span class="line">        run = <span class="number">1</span></span><br><span class="line">        w, h = template.shape[::<span class="number">-1</span>]</span><br><span class="line">        print(w, h)</span><br><span class="line">        res = cv2.matchTemplate(img_gray,template,cv2.TM_CCOEFF_NORMED) </span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 使用二分法查找阈值的精确值 </span></span><br><span class="line">        L = <span class="number">0</span></span><br><span class="line">        R = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> run &lt; <span class="number">20</span>:</span><br><span class="line">            run += <span class="number">1</span></span><br><span class="line">            threshold = (R + L) / <span class="number">2</span></span><br><span class="line">            print(threshold)</span><br><span class="line">            <span class="keyword">if</span> threshold &lt; <span class="number">0</span>:</span><br><span class="line">                print(<span class="string">'Error'</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">            loc = np.where( res &gt;= threshold)</span><br><span class="line">            print(len(loc[<span class="number">1</span>]))</span><br><span class="line">            <span class="keyword">if</span> len(loc[<span class="number">1</span>]) &gt; <span class="number">1</span>:</span><br><span class="line">                L += (R - L) / <span class="number">2</span></span><br><span class="line">            <span class="keyword">elif</span> len(loc[<span class="number">1</span>]) == <span class="number">1</span>:</span><br><span class="line">                print(<span class="string">'目标区域起点x坐标为：%d'</span> % loc[<span class="number">1</span>][<span class="number">0</span>])</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">elif</span> len(loc[<span class="number">1</span>]) &lt; <span class="number">1</span>:</span><br><span class="line">                R -= (R - L) / <span class="number">2</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> loc[<span class="number">1</span>][<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+
+<p>对于第二个问题，我们尝试使用程序模仿人类滑动时的轨迹，先快后慢，并且在最后还会在缺口处调整一会，使用一些数学方法计算轨迹  </p>
+<p><strong>代码如下:</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_tracks</span><span class="params">(self, distance)</span>:</span></span><br><span class="line">        <span class="comment">#根据偏移量获取移动轨迹</span></span><br><span class="line">        print(distance)</span><br><span class="line">        distance += <span class="number">20</span> </span><br><span class="line">        v = <span class="number">0</span>                <span class="comment"># 计算初速度</span></span><br><span class="line">        t = <span class="number">0.2</span>              <span class="comment"># 计算阀值</span></span><br><span class="line">        forward_tracks = []  <span class="comment"># 移动轨迹</span></span><br><span class="line">        current = <span class="number">0</span>          <span class="comment"># 当前位移</span></span><br><span class="line">        mid = distance * <span class="number">3</span>/<span class="number">5</span> <span class="comment"># 减速阀值</span></span><br><span class="line">        <span class="keyword">while</span> current &lt; distance:</span><br><span class="line">            <span class="keyword">if</span> current &lt; mid:</span><br><span class="line">                a = <span class="number">2</span>        <span class="comment"># a加速度</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                a = <span class="number">-3</span>       <span class="comment"># 加速度为-3</span></span><br><span class="line">            s = v * t + <span class="number">0.5</span> * a * (t**<span class="number">2</span>) <span class="comment"># 移动距离x = v0t+1/2*a^2</span></span><br><span class="line">            v = v + a * t                <span class="comment"># 修改速度</span></span><br><span class="line">            current += s                  <span class="comment"># 当前位移需要加上移动的距离</span></span><br><span class="line">            forward_tracks.append(round(s)) <span class="comment"># 加入轨迹列表</span></span><br><span class="line"></span><br><span class="line">        back_tracks = [<span class="number">-3</span>,<span class="number">-3</span>,<span class="number">-2</span>,<span class="number">-2</span>,<span class="number">-2</span>,<span class="number">-2</span>,<span class="number">-2</span>,<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>]</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">'forward_tracks'</span>:forward_tracks,<span class="string">'back_tracks'</span>:back_tracks&#125;</span><br></pre></td></tr></table></figure>
+
+<p>剩下的就是获取要匹配的图片，和定位各按钮的位置了，这在之前的教程中大多已经介绍过，下边给出了一种实现方法和实现的效果。</p>
+<p><strong>程序实现效果：</strong></p>
+<img src="https://s2.ax1x.com/2019/12/13/Q2ayAe.gif" alt="Q2ayAe.gif" border="0" />
+
+<p><strong>程序完整代码：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image, ImageEnhance</span><br><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver  </span><br><span class="line"><span class="keyword">from</span> selenium.webdriver <span class="keyword">import</span> ActionChains  </span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.by <span class="keyword">import</span> By  </span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.keys <span class="keyword">import</span> Keys  </span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support <span class="keyword">import</span> expected_conditions <span class="keyword">as</span> EC   <span class="comment">#用来动态检查网页上的元素是否符合预期</span></span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support.wait <span class="keyword">import</span> WebDriverWait   </span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> io <span class="keyword">import</span> BytesIO</span><br><span class="line"><span class="keyword">import</span> time, requests</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CrackSlider</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    通过浏览器截图，识别验证码中缺口位置，获取需要滑动距离，并模仿人类行为破解滑动验证码</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(CrackSlider, self).__init__()</span><br><span class="line">        <span class="comment"># 实际地址</span></span><br><span class="line">        self.url = <span class="string">'http://dun.163.com/trial/jigsaw'</span></span><br><span class="line">        self.driver = webdriver.Chrome()</span><br><span class="line">        self.wait = WebDriverWait(self.driver, <span class="number">20</span>) <span class="comment">#等待限制20秒超时</span></span><br><span class="line">        self.zoom = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">open</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.driver.get(self.url)   <span class="comment">#浏览器打开目标网页</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_pic</span><span class="params">(self)</span>:</span></span><br><span class="line">        time.sleep(<span class="number">2</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#判断yidun_bg-img，yidun_jigsaw元素是否被加到了dom树里，并不代表该元素一定可见，如果定位到就返回WebElement</span></span><br><span class="line">        target = self.wait.until(EC.presence_of_element_located((By.CLASS_NAME, <span class="string">'yidun_bg-img'</span>)))</span><br><span class="line">        template = self.wait.until(EC.presence_of_element_located((By.CLASS_NAME, <span class="string">'yidun_jigsaw'</span>)))</span><br><span class="line">        </span><br><span class="line">         <span class="comment">#图片元素的获取图片地址</span></span><br><span class="line">        target_link = target.get_attribute(<span class="string">'src'</span>)     <span class="comment">#有缺口的背景的scr属性</span></span><br><span class="line">        template_link = template.get_attribute(<span class="string">'src'</span>) <span class="comment">#待移动的滑块的scr属性</span></span><br><span class="line">                </span><br><span class="line">        <span class="comment">#使用request的get方法访问图片，用image获取图片对象并保存</span></span><br><span class="line">        target_img = Image.open(BytesIO(requests.get(target_link).content)) </span><br><span class="line">        template_img = Image.open(BytesIO(requests.get(template_link).content))</span><br><span class="line">        target_img.save(<span class="string">'target.jpg'</span>)</span><br><span class="line">        template_img.save(<span class="string">'template.png'</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#获取图片原始大小同网页上的大小相除，获得缩放比例，保证不同分辨率都可以运行</span></span><br><span class="line">        local_img = Image.open(<span class="string">'target.jpg'</span>)</span><br><span class="line">        size_loc = local_img.size           <span class="comment">#获得本地图片的大小尺寸</span></span><br><span class="line">        self.zoom = <span class="number">320</span> / int(size_loc[<span class="number">0</span>])  <span class="comment">#网页上图片的长是320，相除获得比率</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_tracks</span><span class="params">(self, distance)</span>:</span></span><br><span class="line">        <span class="comment">#根据偏移量获取移动轨迹</span></span><br><span class="line">        print(distance)</span><br><span class="line">        distance += <span class="number">20</span> </span><br><span class="line">        v = <span class="number">0</span>                <span class="comment"># 计算初速度</span></span><br><span class="line">        t = <span class="number">0.2</span>              <span class="comment"># 计算阀值</span></span><br><span class="line">        forward_tracks = []  <span class="comment"># 移动轨迹</span></span><br><span class="line">        current = <span class="number">0</span>          <span class="comment"># 当前位移</span></span><br><span class="line">        mid = distance * <span class="number">3</span>/<span class="number">5</span> <span class="comment"># 减速阀值</span></span><br><span class="line">        <span class="keyword">while</span> current &lt; distance:</span><br><span class="line">            <span class="keyword">if</span> current &lt; mid:</span><br><span class="line">                a = <span class="number">2</span>        <span class="comment"># a加速度</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                a = <span class="number">-3</span>       <span class="comment"># 加速度为-3</span></span><br><span class="line">            s = v * t + <span class="number">0.5</span> * a * (t**<span class="number">2</span>) <span class="comment"># 移动距离x = v0t+1/2*a^2</span></span><br><span class="line">            v = v + a * t                <span class="comment"># 修改速度</span></span><br><span class="line">            current += s                  <span class="comment"># 当前位移需要加上移动的距离</span></span><br><span class="line">            forward_tracks.append(round(s)) <span class="comment"># 加入轨迹列表</span></span><br><span class="line"></span><br><span class="line">        back_tracks = [<span class="number">-3</span>,<span class="number">-3</span>,<span class="number">-2</span>,<span class="number">-2</span>,<span class="number">-2</span>,<span class="number">-2</span>,<span class="number">-2</span>,<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>]</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">'forward_tracks'</span>:forward_tracks,<span class="string">'back_tracks'</span>:back_tracks&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">match</span><span class="params">(self, target, template)</span>:</span>   </span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        使用opencv匹配缺口位置</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        img_rgb = cv2.imread(target)      <span class="comment">#用CV加载有缺口的背景</span></span><br><span class="line">        img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY) <span class="comment">#用CV转换成灰度图</span></span><br><span class="line">        template = cv2.imread(template,<span class="number">0</span>) <span class="comment">#用CV打开要移动的图块</span></span><br><span class="line">        run = <span class="number">1</span></span><br><span class="line">        w, h = template.shape[::<span class="number">-1</span>]</span><br><span class="line">        print(w, h)</span><br><span class="line">        res = cv2.matchTemplate(img_gray,template,cv2.TM_CCOEFF_NORMED) </span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 使用二分法查找阈值的精确值 </span></span><br><span class="line">        L = <span class="number">0</span></span><br><span class="line">        R = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> run &lt; <span class="number">20</span>:</span><br><span class="line">            run += <span class="number">1</span></span><br><span class="line">            threshold = (R + L) / <span class="number">2</span></span><br><span class="line">            print(threshold)</span><br><span class="line">            <span class="keyword">if</span> threshold &lt; <span class="number">0</span>:</span><br><span class="line">                print(<span class="string">'Error'</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">            loc = np.where( res &gt;= threshold)</span><br><span class="line">            print(len(loc[<span class="number">1</span>]))</span><br><span class="line">            <span class="keyword">if</span> len(loc[<span class="number">1</span>]) &gt; <span class="number">1</span>:</span><br><span class="line">                L += (R - L) / <span class="number">2</span></span><br><span class="line">            <span class="keyword">elif</span> len(loc[<span class="number">1</span>]) == <span class="number">1</span>:</span><br><span class="line">                print(<span class="string">'目标区域起点x坐标为：%d'</span> % loc[<span class="number">1</span>][<span class="number">0</span>])</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">elif</span> len(loc[<span class="number">1</span>]) &lt; <span class="number">1</span>:</span><br><span class="line">                R -= (R - L) / <span class="number">2</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> loc[<span class="number">1</span>][<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">crack_slider</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        #根据计算好的轨迹，模拟滑动滑块</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="comment">#打开要验证的网页</span></span><br><span class="line">        self.open() </span><br><span class="line">        </span><br><span class="line">        <span class="comment">#根据获取有缺口的背景和滑块</span></span><br><span class="line">        self.get_pic()</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#获取缺口位置</span></span><br><span class="line">        target = <span class="string">'target.jpg'</span></span><br><span class="line">        template = <span class="string">'template.png'</span></span><br><span class="line">        distance = self.match(target, template)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#获取移动轨迹，同时缩放</span></span><br><span class="line">        tracks = self.get_tracks((distance + <span class="number">7</span> )*self.zoom) <span class="comment"># 对位移的缩放计算</span></span><br><span class="line">        print(tracks)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#定位滑块位置</span></span><br><span class="line">        slider = self.wait.until(EC.element_to_be_clickable((By.CLASS_NAME, <span class="string">'yidun_slider'</span>)))</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#模拟鼠标操作，点击不松开</span></span><br><span class="line">        ActionChains(self.driver).click_and_hold(slider).perform()</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#按照轨迹移动鼠标，横向移动，纵向不动</span></span><br><span class="line">        <span class="keyword">for</span> track <span class="keyword">in</span> tracks[<span class="string">'forward_tracks'</span>]:</span><br><span class="line">            ActionChains(self.driver).move_by_offset(xoffset=track, yoffset=<span class="number">0</span>).perform()</span><br><span class="line"></span><br><span class="line">        time.sleep(<span class="number">0.5</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#越过一点再回来，迷惑验证系统</span></span><br><span class="line">        <span class="keyword">for</span> back_tracks <span class="keyword">in</span> tracks[<span class="string">'back_tracks'</span>]:</span><br><span class="line">            ActionChains(self.driver).move_by_offset(xoffset=back_tracks, yoffset=<span class="number">0</span>).perform()</span><br><span class="line">        ActionChains(self.driver).move_by_offset(xoffset=<span class="number">-3</span>, yoffset=<span class="number">0</span>).perform()</span><br><span class="line">        ActionChains(self.driver).move_by_offset(xoffset=<span class="number">3</span>, yoffset=<span class="number">0</span>).perform()</span><br><span class="line">        time.sleep(<span class="number">0.5</span>)</span><br><span class="line">        ActionChains(self.driver).release().perform()</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#检查是否验证通过</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            failure = self.wait.until(EC.text_to_be_present_in_element((By.CLASS_NAME, <span class="string">'yidun_tips__text'</span>), <span class="string">'向右滑动滑块填充拼图'</span>))</span><br><span class="line">            print(failure)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            print(<span class="string">'验证成功'</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> failure:</span><br><span class="line">            self.crack_slider()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    c = CrackSlider()</span><br><span class="line">    c.crack_slider()</span><br></pre></td></tr></table></figure>
+
+<pre><code>60 158
+0.5
+0
+0.25
+10
+0.375
+0
+0.3125
+1
+目标区域起点x坐标为：147
+154.0
+{&apos;forward_tracks&apos;: [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1], &apos;back_tracks&apos;: [-3, -3, -2, -2, -2, -2, -2, -1, -1, -1]}
+验证成功</code></pre><p><a id="ch6"></a></p>
+<h2 id="六、小结"><a href="#六、小结" class="headerlink" title="六、小结"></a>六、小结</h2><p>本文主要讲解了selenium库的一些基本用法，本文可以帮助你通过selenium完成大多数网页的操作，同时两个程序实例可以更好的帮你理解selenium的功能的强大之处。<br>更多的API和细节操作你可以参考以下网站：<br>中文翻译文档：<a href="https://selenium-python-zh.readthedocs.io/en/latest/" target="_blank" rel="noopener">https://selenium-python-zh.readthedocs.io/en/latest/</a><br>英文文档：<a href="https://selenium-python.readthedocs.io/index.html" target="_blank" rel="noopener">https://selenium-python.readthedocs.io/index.html</a><br>官方文档：<a href="https://selenium.dev/selenium/docs/api/py/api.html" target="_blank" rel="noopener">https://selenium.dev/selenium/docs/api/py/api.html</a></p>
+<p><strong>作者：徐世龙 杨宗强</strong></p>
+<p><strong>转载请注明出处！</strong></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Selenium/" rel="tag"># Selenium</a>
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/%E7%88%AC%E8%99%AB/" rel="tag"># 爬虫</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/11/19/quicksort/" rel="next" title="【排序算法】快速排序【模板】">
+                  <i class="fa fa-chevron-left"></i> 【排序算法】快速排序【模板】
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一、Selenium介绍"><span class="nav-number">2.</span> <span class="nav-text">一、Selenium介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1）Selenium简介"><span class="nav-number">2.1.</span> <span class="nav-text">1）Selenium简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2）Selenium的特点"><span class="nav-number">2.2.</span> <span class="nav-text">2）Selenium的特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Selenium库的安装与环境配置"><span class="nav-number">3.</span> <span class="nav-text">二、Selenium库的安装与环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1）Selenium库的安装"><span class="nav-number">3.1.</span> <span class="nav-text">1）Selenium库的安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2）Selenium浏览器的配置"><span class="nav-number">3.2.</span> <span class="nav-text">2）Selenium浏览器的配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、一个简单的入门程序"><span class="nav-number">4.</span> <span class="nav-text">三、一个简单的入门程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、Selenium库详解"><span class="nav-number">5.</span> <span class="nav-text">四、Selenium库详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-无图形化界面的浏览器"><span class="nav-number">5.1.</span> <span class="nav-text">1.无图形化界面的浏览器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-元素的查找和元素交互动作"><span class="nav-number">5.2.</span> <span class="nav-text">2.元素的查找和元素交互动作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1）元素对象的查找"><span class="nav-number">5.2.1.</span> <span class="nav-text">1）元素对象的查找</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2）与元素对象的交互"><span class="nav-number">5.2.2.</span> <span class="nav-text">2）与元素对象的交互</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3）获取元素属性信息"><span class="nav-number">5.2.3.</span> <span class="nav-text">3）获取元素属性信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4）运行JS代码"><span class="nav-number">5.2.4.</span> <span class="nav-text">4）运行JS代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5）对懒加载网页的爬取对策"><span class="nav-number">5.2.5.</span> <span class="nav-text">5）对懒加载网页的爬取对策</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、程序实例"><span class="nav-number">6.</span> <span class="nav-text">五、程序实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-模拟校园网登录"><span class="nav-number">6.1.</span> <span class="nav-text">1. 模拟校园网登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-易盾滑动验证码破解"><span class="nav-number">6.2.</span> <span class="nav-text">2. 易盾滑动验证码破解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、小结"><span class="nav-number">7.</span> <span class="nav-text">六、小结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">徐世龙</p>
+  <div class="site-description" itemprop="description">兰州大学 | 数据科学与大数据技术 | 机器学习 算法</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="chat motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/XuSlone" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;XuSlone" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/mailto:hsuslone86@gmail.com" title="E-Mail → mailto:hsuslone86@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=530825293&site=qq&menu=yes" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v=3&amp;uin=530825293&amp;site=qq&amp;menu=yes" rel="noopener" target="_blank"><i class="fa fa-fw fa-qq"></i>QQ</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://xuslone.top/" title="http:&#x2F;&#x2F;xuslone.top">Title</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">徐世龙</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: 'c91471682b49cb40729a',
+      clientSecret: '8d76409a8c539fafa27a00133127587d4f9074ef',
+      repo: 'XuSlone.github.io',
+      owner: 'XuSlone',
+      admin: ['XuSlone'],
+      id: 'c319f5265b0d1512403f7f616ad9e058',
+        language: 'zh-CN',
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+</body>
+</html>
