@@ -46,19 +46,19 @@
   };
 </script>
 
-  <meta name="description" content="目录 python函数初探 函数的参数 参数的传递——数值传递和引用传递 函数参数详解 位置参数 关键字参数 默认参数 可变参数 任意参数和序列参数（逆向参数)     函数的返回值 偏函数（partial偏函数及用法） 函数高阶用法（函数是变量，是参数，闭包） 闭包函数  匿名函数 Python 3函数注解：为函数参数提供类型提示信息">
-<meta name="keywords" content="DeepLearning  Alone XuShilong WeiYang 算法 机器学习">
+  <meta name="description" content="本文详解讲解了python中函数的用法和部分高阶特性，包括闭包，可变参数，匿名函数等 作者：徐世龙转载请注明出处！">
+<meta name="keywords" content="python,函数">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python函数">
+<meta property="og:title" content="python函数详解">
 <meta property="og:url" content="https:&#x2F;&#x2F;xuslone.top&#x2F;2019&#x2F;12&#x2F;19&#x2F;python%E5%87%BD%E6%95%B0&#x2F;index.html">
 <meta property="og:site_name" content="Alone的博客">
-<meta property="og:description" content="目录 python函数初探 函数的参数 参数的传递——数值传递和引用传递 函数参数详解 位置参数 关键字参数 默认参数 可变参数 任意参数和序列参数（逆向参数)     函数的返回值 偏函数（partial偏函数及用法） 函数高阶用法（函数是变量，是参数，闭包） 闭包函数  匿名函数 Python 3函数注解：为函数参数提供类型提示信息">
+<meta property="og:description" content="本文详解讲解了python中函数的用法和部分高阶特性，包括闭包，可变参数，匿名函数等 作者：徐世龙转载请注明出处！">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="attachment:image.png">
-<meta property="og:image" content="attachment:image.png">
-<meta property="og:updated_time" content="2019-12-19T14:30:52.625Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;19&#x2F;QLNEM6.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;19&#x2F;QLNkxx.png">
+<meta property="og:updated_time" content="2019-12-19T14:40:58.014Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="attachment:image.png">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;19&#x2F;QLNEM6.png">
 
 <link rel="canonical" href="https://xuslone.top/2019/12/19/python%E5%87%BD%E6%95%B0/">
 
@@ -74,7 +74,7 @@
   };
 </script>
 
-  <title>python函数 | Alone的博客</title>
+  <title>python函数详解 | Alone的博客</title>
   
 
 
@@ -205,7 +205,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          python函数
+          python函数详解
         </h1>
 
         <div class="post-meta">
@@ -216,7 +216,18 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-12-19 22:32:14 / 修改时间：22:30:52" itemprop="dateCreated datePublished" datetime="2019-12-19T22:32:14+08:00">2019-12-19</time>
+              <time title="创建时间：2019-12-19 22:33:05 / 修改时间：22:40:58" itemprop="dateCreated datePublished" datetime="2019-12-19T22:33:05+08:00">2019-12-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python%E8%AF%AD%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">python语法</span>
+                  </a>
+                </span>
             </span>
 
           
@@ -230,7 +241,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ol>
+        <p>本文详解讲解了python中函数的用法和部分高阶特性，包括闭包，可变参数，匿名函数等</p>
+<p><strong>作者：徐世龙</strong><br><strong>转载请注明出处！</strong></p>
+<a id="more"></a>
+
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ol>
 <li><a href="#ch1">python函数初探</a></li>
 <li><a href="#ch2">函数的参数</a><ol>
 <li><a href="#ch2.1">参数的传递——数值传递和引用传递</a></li>
@@ -250,7 +265,7 @@
 <li><a href="#ch6">闭包函数 </a></li>
 <li><a href="#ch7">匿名函数</a></li>
 <li><a href="#ch8">Python 3函数注解：为函数参数提供类型提示信息</a></li>
-</ol><a id="more"></a>
+</ol>
 <p><a id="ch1"></a></p>
 <h1 id="一、python函数初探"><a href="#一、python函数初探" class="headerlink" title="一、python函数初探"></a>一、python函数初探</h1><p>在python中函数的使用非常广泛，python中的函数分为：  </p>
 <ul>
@@ -258,7 +273,8 @@
 <li>自定义函数   </li>
 </ul>
 <p>其中，内置函数有<strong>input()</strong>, <strong>print()</strong>, <strong>abs()</strong>, <strong>len()</strong> 等，内置函数可以直接使用。<br>python还支持自定义函数，所谓函数，简单点可以看成实现了特定功能的一段取了名字的代码，<br>形象来说，函数可以看成一个黑盒子，丢进去一些值可以返回处理好的一些值。如下图所示：</p>
-<p><img src="attachment:image.png" alt="image.png"></p>
+<img src="https://s2.ax1x.com/2019/12/19/QLNEM6.png" alt="QLNEM6.png" border="0">
+
 <p>编写一个函数需要注意以下三点：</p>
 <ul>
 <li>函数需要哪些变量，即函数的参数是什么</li>
@@ -616,13 +632,15 @@ used: 0.0009176000003208173</code></pre><p>上面的的程序定义了一个给�
 <li><strong>注意</strong>，如果参数有默认值，参数注解位于冒号和等号之间。比如 eggs:str=’eggs’，它表示 eggs 参数的默认值为 ‘eggs’，添加的注解为 str。</li>
 </ul>
 <p>函数的注解保存在函数对象的 <strong>annotations</strong> 中，这是一个字典，可以获取这个属性在程序中获得注解，以检查类型等。同时在有自动补全的编辑器内，注解可以提示用户函数的参数类型，使程序的编写更加方便。</p>
-<p><img src="attachment:image.png" alt="image.png"></p>
+<img src="https://s2.ax1x.com/2019/12/19/QLNkxx.png" alt="QLNkxx.png" border="0">
+
 <p>PEP 3107 作为提议函数注解的官方文档，其中列出了以下可能的使用场景：</p>
 <ul>
 <li>提供类型信息：包括类型检查、让 IDE 显示函数接受和返回的类型、适配、与其他语言的桥梁、数据库查询映射、RPC参数编组等；</li>
 <li>其他信息：函数参数和返回值的文档。</li>
 </ul>
 <p>关于注解更多信息请参阅：<a href="https://docs.python.org/zh-cn/3/library/typing.html?highlight=annotation" target="_blank" rel="noopener">https://docs.python.org/zh-cn/3/library/typing.html?highlight=annotation</a></p>
+<p><strong>作者：徐世龙</strong><br><strong>转载请注明出处！</strong></p>
 
     </div>
 
@@ -631,6 +649,10 @@ used: 0.0009176000003208173</code></pre><p>上面的的程序定义了一个给�
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/%E5%87%BD%E6%95%B0/" rel="tag"># 函数</a>
+          </div>
 
         
 
@@ -704,13 +726,13 @@ used: 0.0009176000003208173</code></pre><p>上面的的程序定义了一个给�
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
