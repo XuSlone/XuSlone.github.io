@@ -46,17 +46,17 @@
   };
 </script>
 
-  <meta name="description" content="本文详解讲解了python中函数的用法和部分高阶特性，包括闭包，可变参数，匿名函数等 作者：徐世龙转载请注明出处！">
+  <meta name="description" content="本文详细讲解了python中函数的用法和部分高阶特性，包括闭包，可变参数，匿名函数等 作者：徐世龙转载请注明出处！">
 <meta name="keywords" content="python,函数">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python函数详解">
 <meta property="og:url" content="https:&#x2F;&#x2F;xuslone.top&#x2F;2019&#x2F;12&#x2F;19&#x2F;python%E5%87%BD%E6%95%B0&#x2F;index.html">
 <meta property="og:site_name" content="Alone的博客">
-<meta property="og:description" content="本文详解讲解了python中函数的用法和部分高阶特性，包括闭包，可变参数，匿名函数等 作者：徐世龙转载请注明出处！">
+<meta property="og:description" content="本文详细讲解了python中函数的用法和部分高阶特性，包括闭包，可变参数，匿名函数等 作者：徐世龙转载请注明出处！">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;19&#x2F;QLNEM6.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;19&#x2F;QLNkxx.png">
-<meta property="og:updated_time" content="2019-12-19T14:40:58.014Z">
+<meta property="og:updated_time" content="2019-12-20T02:05:13.361Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;s2.ax1x.com&#x2F;2019&#x2F;12&#x2F;19&#x2F;QLNEM6.png">
 
@@ -214,10 +214,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-12-19 22:33:05 / 修改时间：22:40:58" itemprop="dateCreated datePublished" datetime="2019-12-19T22:33:05+08:00">2019-12-19</time>
+              <time title="创建时间：2019-12-19 22:33:05" itemprop="dateCreated datePublished" datetime="2019-12-19T22:33:05+08:00">2019-12-19</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-20 10:05:13" itemprop="dateModified" datetime="2019-12-20T10:05:13+08:00">2019-12-20</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -241,7 +247,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本文详解讲解了python中函数的用法和部分高阶特性，包括闭包，可变参数，匿名函数等</p>
+        <p>本文详细讲解了python中函数的用法和部分高阶特性，包括闭包，可变参数，匿名函数等</p>
 <p><strong>作者：徐世龙</strong><br><strong>转载请注明出处！</strong></p>
 <a id="more"></a>
 
@@ -297,7 +303,7 @@
 <p>调用函数的基本语法格式如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">变量 = 函数名（[参数值]）</span><br></pre></td></tr></table></figure>
 
-<p>对于上面的形式，没有参数的函数调用时不用传入参数。函数没有返回值的话不用使用变量接收，有返回值的话可以接收函数的返回值，也可以忽略返回值，直接用一下形式调用：</p>
+<p>对于上面的形式，没有参数的函数调用时不用传入参数。函数没有返回值的话不用使用变量接收，有返回值的话可以接收函数的返回值，也可以忽略返回值，直接用以下形式调用：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">函数名（[参数值]）</span><br></pre></td></tr></table></figure>
 
 <p>注意，函数名后的英文括号不能省略。对于传入参数的要求，在[函数的参数]章节中会有详细解释。</p>
@@ -559,7 +565,7 @@ None &lt;class &apos;NoneType&apos;&gt;</code></pre><p>可以看出:<br>返回�
 
 
 
-<pre><code>(6, 6)</code></pre><p>上面的代码，定义了一个闭包函数，外函数为outer,内函数为inner，调用外函数，传入一个参数“3”, 得到了一个新的函数对象func，其内部结构等同于一下函数：</p>
+<pre><code>(6, 6)</code></pre><p>上面的代码，定义了一个闭包函数，外函数为outer,内函数为inner，调用外函数，传入一个参数“3”, 得到了一个新的函数对象func，其内部结构等同于以下函数：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">(b)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">3</span>*b</span><br></pre></td></tr></table></figure>
 
 <p>在调用函数时我们可以看到，调用func传入3 和 outer(3)(2) 是等效的。</p>
@@ -570,7 +576,7 @@ None &lt;class &apos;NoneType&apos;&gt;</code></pre><p>可以看出:<br>返回�
 
 <pre><code>[10, 0]
 [10, 20]
-[0, 20]</code></pre><p>在上面的程序中，一定要写上 <strong>nonlocal pos</strong> 这句，否则就会抛出异常“pos没有定义”，这是因为，<strong>python认为所有在赋值语句左边的变量，都是当前环境的局部变量，除非使用nonlocal语句显式说明，或者变量是一个容器内的值</strong>，在 <strong>pos= [new_x,new_y]</strong>  这句，如果之前不加声明，那么python就认为pos是一个局部变量，所以在 <strong>new_x = pos[0] + direction[0]*step</strong> 就会报错，解决方法有一下两种定义方式：</p>
+[0, 20]</code></pre><p>在上面的程序中，一定要写上 <strong>nonlocal pos</strong> 这句，否则就会抛出异常“pos没有定义”，这是因为，<strong>python认为所有在赋值语句左边的变量，都是当前环境的局部变量，除非使用nonlocal语句显式说明，或者变量是一个容器内的值</strong>，在 <strong>pos= [new_x,new_y]</strong>  这句，如果之前不加声明，那么python就认为pos是一个局部变量，所以在 <strong>new_x = pos[0] + direction[0]*step</strong> 就会报错，解决方法有以下两种定义方式：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">player1</span><span class="params">(direction,step)</span>:</span></span><br><span class="line">    <span class="keyword">nonlocal</span> pos</span><br><span class="line">    new_x = pos[<span class="number">0</span>] + direction[<span class="number">0</span>]*step</span><br><span class="line">    new_y = pos[<span class="number">1</span>] + direction[<span class="number">1</span>]*step</span><br><span class="line">    pos= [new_x,new_y]</span><br><span class="line">    <span class="keyword">return</span> pos</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">player2</span><span class="params">(direction,step)</span>:</span></span><br><span class="line">    pos[<span class="number">0</span>] = pos[<span class="number">0</span>] + direction[<span class="number">0</span>]*step</span><br><span class="line">    pos[<span class="number">1</span>] = pos[<span class="number">1</span>] + direction[<span class="number">1</span>]*step</span><br><span class="line">    <span class="keyword">return</span> pos</span><br></pre></td></tr></table></figure>
 
 <p><strong>②配置函数内部参数</strong></p>
@@ -613,7 +619,7 @@ used: 0.0009176000003208173</code></pre><p>上面的的程序定义了一个给�
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_math_func</span><span class="params">(type)</span> :</span></span><br><span class="line">    result=<span class="number">1</span></span><br><span class="line">    <span class="comment"># 该函数返回的是Lambda表达式</span></span><br><span class="line">    <span class="keyword">if</span> type == <span class="string">'square'</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">lambda</span> n: n * n  </span><br><span class="line">    <span class="keyword">elif</span> type == <span class="string">'cube'</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">lambda</span> n: n * n * n  </span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">lambda</span> n: (<span class="number">1</span> + n) * n / <span class="number">2</span></span><br></pre></td></tr></table></figure>
 
 <p>②lambda表达式定义的匿名函数也可以作为实际参数传给形式参数</p>
-<p>对于第五章中的函数我们还可以用一下方式调用：</p>
+<p>对于第五章中的函数我们还可以用以下方式调用：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_map</span><span class="params">(numlist,func)</span>:</span></span><br><span class="line">    ans=[]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> numlist:</span><br><span class="line">        ans.append(func(i))</span><br><span class="line">    <span class="comment">#对numlisth中的每一个元素使用传入的函数计算，再将结果添加到一个新的列表中去</span></span><br><span class="line">    <span class="keyword">return</span> ans</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">my_list=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]</span><br><span class="line">my_map(my_list, <span class="keyword">lambda</span> x:x**<span class="number">2</span> )</span><br></pre></td></tr></table></figure>
 
 
